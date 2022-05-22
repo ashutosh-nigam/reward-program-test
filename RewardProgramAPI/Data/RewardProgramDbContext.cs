@@ -4,10 +4,15 @@ using RewardProgramAPI.Models;
 
 namespace RewardProgramAPI.Data
 {
+	/// <summary>
+	/// Reward Program Databaes Context using EF Core
+	/// </summary>
 	public class RewardProgramDbContext : DbContext
 	{
 		public RewardProgramDbContext(DbContextOptions<RewardProgramDbContext> dbContextOptions):base(dbContextOptions) 
 		{
+			// Ensure Database exists
+			this.Database.EnsureCreated();
 		}
 
 		public DbSet<Customer> Customers { get; set; }
@@ -16,6 +21,7 @@ namespace RewardProgramAPI.Data
 		public DbSet<ProductOrder> ProductOrders { get; set; }
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			// Configure Many to Many Relation columns
 			modelBuilder.Entity<ProductOrder>().HasKey(x => new {x.ProductId, x.OrderId});
 		}
 	}
