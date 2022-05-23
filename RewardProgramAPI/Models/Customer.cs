@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace RewardProgramAPI.Models
@@ -15,6 +17,8 @@ namespace RewardProgramAPI.Models
 		public int Id { get; set; }
 		[Required]
 		public string Name { get; set; }
+
+		public ICollection<Order> Orders { get; set; }
     }
 }
 

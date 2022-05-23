@@ -22,7 +22,7 @@ namespace RewardProgramAPI.Models
         public Customer Customer { get; set; }
         [Required, DefaultValue(0)]
         public int Points { get; set; }
-        public virtual ICollection<ProductOrder> ProductOrders { get; set; }
+        public ICollection<ProductOrder> ProductOrders { get; set; }
     }
 
 }

@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace RewardProgramAPI.Models;
@@ -9,6 +10,8 @@ public class ProductOrder
 {
     [Key]
     public int ProductId { get; set; }
+    [Required,DefaultValue(1)]
+    public int Quantity { get; set; }
     public Product Product { get; set; }
     [Key]
     public int OrderId { get; set; }
