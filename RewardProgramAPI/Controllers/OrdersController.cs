@@ -60,12 +60,13 @@ namespace RewardProgramAPI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(string),StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ViewModels.Order),200)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ViewModels.Order), 200)]
         [Produces("application/json")]
         public IActionResult Get(int id)
         {
             var order = _context.Orders.Include(x => x.ProductOrders).ThenInclude(x => x.Product)
+                .Include(x => x.Customer)
                 .FirstOrDefault(x => x.Id == id);
             ViewModels.Order orderView = null;
             if (order != null)
@@ -82,19 +83,25 @@ namespace RewardProgramAPI.Controllers
                         Name = y.Product.Name,
                         Quantity = y.Quantity,
                         Price = y.Product.Price
-                    }).ToList()
+                    }).ToList(),
+                    Customer = new ViewModels.Customer()
+                    {
+                        Id = order.Customer.Id,
+                        Name = order.Customer.Name
+                    }
                 };
             return order != null ? Ok(orderView) : NotFound($"Order with Id: {id.ToString()} not found.");
         }
+
         /// <summary>
         /// Place a New Purchase Order
         /// </summary>
         /// <param name="newOrder"></param>
         /// <returns></returns>
         [HttpPost]
-        [ProducesResponseType(typeof(string),StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(string),StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ViewModels.Order),200)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ViewModels.Order), 200)]
         [Produces("application/json")]
         [Consumes("application/json")]
         public IActionResult Post([Bind] NewOrder newOrder)
@@ -105,7 +112,7 @@ namespace RewardProgramAPI.Controllers
                 if (customer != null)
                 {
                     var products = newOrder.Products.Select(x => x.Id).Except(_context.Products.Select(x => x.Id));
-                    if (products.Count() !=0)
+                    if (products.Count() != 0)
                         return NotFound($"Some Products are not available! Please check");
                     var productOrders = new List<ProductOrder>();
                     decimal totalPurchase = 0.0m;
@@ -123,12 +130,12 @@ namespace RewardProgramAPI.Controllers
                         {
                             ProductId = prod.Id,
                             Quantity = prod.Quantity,
-                            Order= order
+                            Order = order
                         });
                         totalPurchase += (prod.Quantity * product.Price);
                     }
 
-                    
+
                     if (totalPurchase > 50)
                         totalPoints += (int) (totalPurchase - 50);
                     if (totalPurchase > 100)
@@ -137,13 +144,14 @@ namespace RewardProgramAPI.Controllers
                     order.ProductOrders = productOrders;
                     _context.ProductOrders.AddRange(productOrders);
                     _context.SaveChanges();
-                    return RedirectToAction("Get", new {id=order.Id});
+                    return RedirectToAction("Get", new {id = order.Id});
                 }
                 else
                 {
                     return NotFound($"Customer with Id {newOrder.CustomerId.ToString()} Not available.");
                 }
             }
+
             return BadRequest("Invalid Data");
         }
     }
