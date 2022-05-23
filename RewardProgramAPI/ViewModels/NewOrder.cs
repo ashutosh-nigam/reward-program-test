@@ -3,15 +3,20 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RewardProgramAPI.ViewModels;
 
+/// <summary>
+/// New Order Model used to pass new Order
+/// </summary>
 public class NewOrder
 {
     [Required]
     public int CustomerId { get; set; }
     [Required]
-    public IList<NewProduct> Products { get; set; }
+    public IList<ProductInfo> Products { get; set; }
 }
-
-public class NewProduct
+/// <summary>
+/// ProductInfo for new Orders
+/// </summary>
+public class ProductInfo
 {
     [Required]
     public int Id { get; set; }

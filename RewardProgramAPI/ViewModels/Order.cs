@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 
 namespace RewardProgramAPI.ViewModels;
-
+/// <summary>
+/// Order View Model to display Order Information
+/// </summary>
 public class Order
 {
     public int Id { get; set; }

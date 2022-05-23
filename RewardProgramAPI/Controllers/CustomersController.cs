@@ -11,14 +11,20 @@ using RewardProgramAPI.ViewModels;
 
 namespace RewardProgramAPI.Controllers
 {
-    public class CustomerController : Controller
+    /// <summary>
+    /// Customers Information
+    /// </summary>
+    public class CustomersController : Controller
     {
         RewardProgramDbContext context;
-        public CustomerController(RewardProgramDbContext context)
+        public CustomersController(RewardProgramDbContext context)
         {
             this.context = context;
         }
-
+        /// <summary>
+        /// Get List of All Customers with Name and Id
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("customers/all")]
         public IActionResult GetAll()
         {
@@ -29,6 +35,11 @@ namespace RewardProgramAPI.Controllers
             }));
         }
 
+        /// <summary>
+        /// Get Individual Customer Information including orders he did. using customer id
+        /// </summary>
+        /// <param name="id">Customer Id</param>
+        /// <returns></returns>
         [HttpGet("customers/{id}")]
         public IActionResult Get(int id)
         {

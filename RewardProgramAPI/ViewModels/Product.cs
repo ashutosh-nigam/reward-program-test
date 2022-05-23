@@ -1,7 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace RewardProgramAPI.ViewModels;
-
+/// <summary>
+/// Product View Model to display Product Information with Price Quantity
+/// </summary>
 public class Product
 {
     [Key]

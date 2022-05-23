@@ -5,7 +5,7 @@ using RewardProgramAPI.Models;
 namespace RewardProgramAPI.Data
 {
 	/// <summary>
-	/// Reward Program Databaes Context using EF Core
+	/// Reward Program Databases Context using EF Core
 	/// </summary>
 	public class RewardProgramDbContext : DbContext
 	{
