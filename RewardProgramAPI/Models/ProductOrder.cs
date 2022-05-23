@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RewardProgramAPI.Models;
 
@@ -9,11 +10,13 @@ namespace RewardProgramAPI.Models;
 public class ProductOrder
 {
     [Key]
+    [ForeignKey("Product")]
     public int ProductId { get; set; }
     [Required,DefaultValue(1)]
     public int Quantity { get; set; }
-    public Product Product { get; set; }
+    public virtual Product Product { get; set; }
     [Key]
+    [ForeignKey("Order")]
     public int OrderId { get; set; }
-    public Order Order { get; set; }
+    public virtual Order Order { get; set; }
 }

@@ -23,6 +23,7 @@ namespace RewardProgramAPI.Data
 		{
 			// Configure Many to Many Relation columns
 			modelBuilder.Entity<ProductOrder>().HasKey(x => new {x.ProductId, x.OrderId});
+			
 			base.OnModelCreating(modelBuilder);
 		}
 	}
