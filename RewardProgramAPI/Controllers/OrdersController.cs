@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RewardProgramAPI.Data;
 using RewardProgramAPI.Models;
 using RewardProgramAPI.ViewModels;
+using Order = RewardProgramAPI.Models.Order;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace RewardProgramAPI.Controllers
 {
     [ApiController]
-  
     public class OrdersController : ControllerBase
     {
         private RewardProgramDbContext context;
@@ -22,7 +25,7 @@ namespace RewardProgramAPI.Controllers
         {
             this.context = context;
         }
-        
+
         /// <summary>
         /// Get List of Orders
         /// </summary>
@@ -30,21 +33,22 @@ namespace RewardProgramAPI.Controllers
         [HttpGet("orders/all")]
         public IEnumerable<ViewModels.Order> GetAll()
         {
-            return context.Orders.Include(x => x.ProductOrders).ThenInclude(x=>x.Product).Select(x=> new ViewModels.Order()
-            {
-                Id= x.Id,
-                Date = x.DateTime,
-                Customer = new ViewModels.Customer()
+            return context.Orders.Include(x => x.ProductOrders).ThenInclude(x => x.Product).Select(x =>
+                new ViewModels.Order()
                 {
-                    Id= x.Customer.Id,
-                    Name=x.Customer.Name
-                },
-                Points = x.Points,
-                NoOfProducts = x.ProductOrders.Count(),
-                TotalAmount = x.ProductOrders.Sum(y=> (int)(y.Quantity* y.Product.Price))
-            }).ToList();
+                    Id = x.Id,
+                    Date = x.DateTime,
+                    Customer = new ViewModels.Customer()
+                    {
+                        Id = x.Customer.Id,
+                        Name = x.Customer.Name
+                    },
+                    Points = x.Points,
+                    NoOfProducts = x.ProductOrders.Count(),
+                    TotalAmount = x.ProductOrders.Sum(y => (int) (y.Quantity * y.Product.Price))
+                }).ToList();
         }
-        
+
         /// <summary>
         /// Get Single Order Info
         /// </summary>
@@ -53,7 +57,8 @@ namespace RewardProgramAPI.Controllers
         [HttpGet("orders/{id}")]
         public IActionResult Get(int id)
         {
-            var order= context.Orders.Include(x => x.ProductOrders).ThenInclude(x=>x.Product).FirstOrDefault(x => x.Id == id);
+            var order = context.Orders.Include(x => x.ProductOrders).ThenInclude(x => x.Product)
+                .FirstOrDefault(x => x.Id == id);
             ViewModels.Order orderView = null;
             if (order != null)
                 orderView = new ViewModels.Order()
@@ -62,7 +67,7 @@ namespace RewardProgramAPI.Controllers
                     Date = order.DateTime,
                     Points = order.Points,
                     NoOfProducts = order.ProductOrders.Count(),
-                    TotalAmount = order.ProductOrders.Sum(y=> (int)(y.Quantity * y.Product.Price)),
+                    TotalAmount = order.ProductOrders.Sum(y => (int) (y.Quantity * y.Product.Price)),
                     Products = order.ProductOrders.Select(y => new ViewModels.Product()
                     {
                         Id = y.Product.Id,
@@ -73,9 +78,57 @@ namespace RewardProgramAPI.Controllers
                 };
             return order != null ? Ok(orderView) : NotFound($"Order with Id: {id.ToString()} not found.");
         }
-        
-        
-        
+
+        [HttpPost]
+        [Route("orders")]
+        public IActionResult Post([Bind] NewOrder newOrder)
+        {
+            if (ModelState.IsValid)
+            {
+                var customer = context.Customers.FirstOrDefault(x => x.Id == newOrder.CustomerId);
+                if (customer != null)
+                {
+                    var products = newOrder.Products.Select(x => x.Id).Except(context.Products.Select(x => x.Id));
+                    if (products.Count() !=0)
+                        return NotFound($"Some Products are not available! Please check");
+                    var productOrders = new List<ProductOrder>();
+                    decimal totalPurchase = 0.0m;
+                    int totalPoints = 0;
+                    var order = new Order()
+                    {
+                        DateTime = DateTime.Now,
+                        CustomerId = customer.Id
+                    };
+                    context.Orders.Add(order);
+                    foreach (var prod in newOrder.Products)
+                    {
+                        var product = context.Products.FirstOrDefault(x => x.Id == prod.Id);
+                        productOrders.Add(new ProductOrder()
+                        {
+                            ProductId = prod.Id,
+                            Quantity = prod.Quantity,
+                            Order= order
+                        });
+                        totalPurchase += (prod.Quantity * product.Price);
+                    }
+
+                    
+                    if (totalPurchase > 50)
+                        totalPoints += (int) (totalPurchase - 50);
+                    if (totalPurchase > 100)
+                        totalPoints += (int) (totalPurchase - 100);
+                    order.Points = totalPoints;
+                    order.ProductOrders = productOrders;
+                    context.ProductOrders.AddRange(productOrders);
+                    context.SaveChanges();
+                    return RedirectToAction("Get", new {id=order.Id});
+                }
+                else
+                {
+                    return NotFound($"Customer with Id {newOrder.CustomerId.ToString()} Not available.");
+                }
+            }
+            return BadRequest("Invalid Data");
+        }
     }
 }
-
