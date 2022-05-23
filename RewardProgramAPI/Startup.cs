@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -37,8 +39,17 @@ namespace RewardProgramAPI
                 {
                     Version = "v1",
                     Title = "Reward Points API. Stellar It Solutions",
-                    Description = "Stellar It Solutions - Full Stack Developer Assessment"
+                    Description = "Stellar It Solutions - Full Stack Developer Assessment",
+                    Contact = new OpenApiContact()
+                    {
+                         Name = "Ashutosh Nigam",
+                         Email = "mrashutoshnigam@gmail.com",
+                         Url =  new Uri("https://www.ashutoshnigam.in")
+                    }
                 });
+                var xmlfile = Path.Combine(AppContext.BaseDirectory,
+                    $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
+                opt.IncludeXmlComments(xmlfile,includeControllerXmlComments:true);
             });
         }
 

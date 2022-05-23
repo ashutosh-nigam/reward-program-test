@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RewardProgramAPI.Data;
@@ -28,13 +29,14 @@ namespace RewardProgramAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult GetAll()
+        [Produces("application/json")]
+        public IEnumerable<ViewModels.Customer> GetAll()
         {
-            return Ok(_context.Customers.Select(x=> new Customer()
+            return _context.Customers.Select(x=> new Customer()
             {
                 Id=x.Id,
                 Name = x.Name
-            }));
+            }).AsEnumerable();
         }
 
         /// <summary>
@@ -43,6 +45,9 @@ namespace RewardProgramAPI.Controllers
         /// <param name="id">Customer Id</param>
         /// <returns></returns>
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(string),StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ViewModels.CustomerWithRewardPoints),200)]
+        [Produces("application/json")]
         public IActionResult Get(int id)
         {
             var customer = _context.Customers.Include(x=>x.Orders).FirstOrDefault(x => x.Id == id);

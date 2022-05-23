@@ -16,6 +16,9 @@ using Order = RewardProgramAPI.Models.Order;
 
 namespace RewardProgramAPI.Controllers
 {
+    /// <summary>
+    /// Orders Information
+    /// </summary>
     [ApiController]
     [Route("orders")]
     public class OrdersController : ControllerBase
@@ -32,6 +35,7 @@ namespace RewardProgramAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Produces("application/json")]
         public IEnumerable<ViewModels.Order> GetAll()
         {
             return _context.Orders.Include(x => x.ProductOrders).ThenInclude(x => x.Product).Select(x =>
@@ -56,6 +60,9 @@ namespace RewardProgramAPI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(string),StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ViewModels.Order),200)]
+        [Produces("application/json")]
         public IActionResult Get(int id)
         {
             var order = _context.Orders.Include(x => x.ProductOrders).ThenInclude(x => x.Product)
@@ -79,8 +86,17 @@ namespace RewardProgramAPI.Controllers
                 };
             return order != null ? Ok(orderView) : NotFound($"Order with Id: {id.ToString()} not found.");
         }
-
+        /// <summary>
+        /// Place a New Purchase Order
+        /// </summary>
+        /// <param name="newOrder"></param>
+        /// <returns></returns>
         [HttpPost]
+        [ProducesResponseType(typeof(string),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string),StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ViewModels.Order),200)]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         public IActionResult Post([Bind] NewOrder newOrder)
         {
             if (ModelState.IsValid)

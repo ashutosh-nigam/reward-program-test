@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RewardProgramAPI.Data;
 using RewardProgramAPI.ViewModels;
 
 namespace RewardProgramAPI.Controllers;
-
+/// <summary>
+/// Reward Points Information
+/// </summary>
 [ApiController]
 [Route("rewardpoints")]
 public class RewardPointsController : ControllerBase
@@ -18,7 +22,12 @@ public class RewardPointsController : ControllerBase
     {
         this._context = context;
     }
+    /// <summary>
+    /// Get List of All Reward Points with Customer details
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
+    [Produces("application/json")]
     public IEnumerable<RewardPoint> GetAll()
     {
         return _context.ProductOrders.GroupBy(x => x.Order.CustomerId)
@@ -38,8 +47,11 @@ public class RewardPointsController : ControllerBase
     /// Get Reward Points for Particular Customer
     /// </summary>
     /// <param name="customerId"></param>
-    /// <returns></returns>
+    /// <returns>Customer Information with Reward Points</returns>
     [HttpGet("{customerId}")]
+    [ProducesResponseType(typeof(string),StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(IEnumerable<CustomerWithRewardPoints>),200)]
+    [Produces("application/json")]
     public IActionResult Get(int customerId)
     {
         var customer = _context.Customers.Include(x=>x.Orders).FirstOrDefault(x => x.Id == customerId);
