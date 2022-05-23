@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RewardProgramAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace RewardProgramAPI
 {
@@ -30,6 +31,15 @@ namespace RewardProgramAPI
             services.AddControllers();
             services.AddDbContext<RewardProgramDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("sqlite")));
+            services.AddSwaggerGen(opt =>
+            {
+                opt.SwaggerDoc("v1", new OpenApiInfo()
+                {
+                    Version = "v1",
+                    Title = "Reward Points API. Stellar It Solutions",
+                    Description = "Stellar It Solutions - Full Stack Developer Assessment"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,7 +49,7 @@ namespace RewardProgramAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -50,6 +60,14 @@ namespace RewardProgramAPI
             {
                 endpoints.MapControllers();
             });
+            app.UseSwagger();
+            app.UseSwaggerUI(x =>
+            {
+                x.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                x.RoutePrefix = string.Empty;
+            });
+
+
         }
     }
 }
