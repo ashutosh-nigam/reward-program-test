@@ -17,23 +17,24 @@ using Order = RewardProgramAPI.Models.Order;
 namespace RewardProgramAPI.Controllers
 {
     [ApiController]
+    [Route("orders")]
     public class OrdersController : ControllerBase
     {
-        private RewardProgramDbContext context;
+        private readonly RewardProgramDbContext _context;
 
         public OrdersController(RewardProgramDbContext context)
         {
-            this.context = context;
+            this._context = context;
         }
 
         /// <summary>
         /// Get List of Orders
         /// </summary>
         /// <returns></returns>
-        [HttpGet("orders/all")]
+        [HttpGet]
         public IEnumerable<ViewModels.Order> GetAll()
         {
-            return context.Orders.Include(x => x.ProductOrders).ThenInclude(x => x.Product).Select(x =>
+            return _context.Orders.Include(x => x.ProductOrders).ThenInclude(x => x.Product).Select(x =>
                 new ViewModels.Order()
                 {
                     Id = x.Id,
@@ -54,10 +55,10 @@ namespace RewardProgramAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("orders/{id}")]
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var order = context.Orders.Include(x => x.ProductOrders).ThenInclude(x => x.Product)
+            var order = _context.Orders.Include(x => x.ProductOrders).ThenInclude(x => x.Product)
                 .FirstOrDefault(x => x.Id == id);
             ViewModels.Order orderView = null;
             if (order != null)
@@ -80,15 +81,14 @@ namespace RewardProgramAPI.Controllers
         }
 
         [HttpPost]
-        [Route("orders")]
         public IActionResult Post([Bind] NewOrder newOrder)
         {
             if (ModelState.IsValid)
             {
-                var customer = context.Customers.FirstOrDefault(x => x.Id == newOrder.CustomerId);
+                var customer = _context.Customers.FirstOrDefault(x => x.Id == newOrder.CustomerId);
                 if (customer != null)
                 {
-                    var products = newOrder.Products.Select(x => x.Id).Except(context.Products.Select(x => x.Id));
+                    var products = newOrder.Products.Select(x => x.Id).Except(_context.Products.Select(x => x.Id));
                     if (products.Count() !=0)
                         return NotFound($"Some Products are not available! Please check");
                     var productOrders = new List<ProductOrder>();
@@ -99,10 +99,10 @@ namespace RewardProgramAPI.Controllers
                         DateTime = DateTime.Now,
                         CustomerId = customer.Id
                     };
-                    context.Orders.Add(order);
+                    _context.Orders.Add(order);
                     foreach (var prod in newOrder.Products)
                     {
-                        var product = context.Products.FirstOrDefault(x => x.Id == prod.Id);
+                        var product = _context.Products.FirstOrDefault(x => x.Id == prod.Id);
                         productOrders.Add(new ProductOrder()
                         {
                             ProductId = prod.Id,
@@ -119,8 +119,8 @@ namespace RewardProgramAPI.Controllers
                         totalPoints += (int) (totalPurchase - 100);
                     order.Points = totalPoints;
                     order.ProductOrders = productOrders;
-                    context.ProductOrders.AddRange(productOrders);
-                    context.SaveChanges();
+                    _context.ProductOrders.AddRange(productOrders);
+                    _context.SaveChanges();
                     return RedirectToAction("Get", new {id=order.Id});
                 }
                 else

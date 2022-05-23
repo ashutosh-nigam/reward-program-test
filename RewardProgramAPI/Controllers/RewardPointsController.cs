@@ -9,18 +9,19 @@ using RewardProgramAPI.ViewModels;
 namespace RewardProgramAPI.Controllers;
 
 [ApiController]
+[Route("rewardpoints")]
 public class RewardPointsController : ControllerBase
 {
-    private RewardProgramDbContext context;
+    private readonly RewardProgramDbContext _context;
 
     public RewardPointsController(RewardProgramDbContext context)
     {
-        this.context = context;
+        this._context = context;
     }
-    [HttpGet("rewardpoints/all")]
+    [HttpGet]
     public IEnumerable<RewardPoint> GetAll()
     {
-        return context.ProductOrders.GroupBy(x => x.Order.CustomerId)
+        return _context.ProductOrders.GroupBy(x => x.Order.CustomerId)
             .Select(x => new {x.First().Order.Customer, Total = x.Sum(y => y.Order.Points)}).ToList()
             .Select(x => new RewardPoint()
             {
@@ -38,10 +39,10 @@ public class RewardPointsController : ControllerBase
     /// </summary>
     /// <param name="customerId"></param>
     /// <returns></returns>
-    [HttpGet("rewardpoints/{customerId}")]
+    [HttpGet("{customerId}")]
     public IActionResult Get(int customerId)
     {
-        var customer = context.Customers.Include(x=>x.Orders).FirstOrDefault(x => x.Id == customerId);
+        var customer = _context.Customers.Include(x=>x.Orders).FirstOrDefault(x => x.Id == customerId);
         if (customer == null)
         {
             return NotFound($"Customer with Id :{customerId.ToString()} Not Found.");

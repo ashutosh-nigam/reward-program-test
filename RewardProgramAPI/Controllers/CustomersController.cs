@@ -14,21 +14,23 @@ namespace RewardProgramAPI.Controllers
     /// <summary>
     /// Customers Information
     /// </summary>
-    public class CustomersController : Controller
+    [ApiController]
+    [Route("customers")]
+    public class CustomersController : ControllerBase
     {
-        RewardProgramDbContext context;
+        private readonly RewardProgramDbContext _context;
         public CustomersController(RewardProgramDbContext context)
         {
-            this.context = context;
+            this._context = context;
         }
         /// <summary>
         /// Get List of All Customers with Name and Id
         /// </summary>
         /// <returns></returns>
-        [HttpGet("customers/all")]
+        [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(context.Customers.Select(x=> new Customer()
+            return Ok(_context.Customers.Select(x=> new Customer()
             {
                 Id=x.Id,
                 Name = x.Name
@@ -40,10 +42,10 @@ namespace RewardProgramAPI.Controllers
         /// </summary>
         /// <param name="id">Customer Id</param>
         /// <returns></returns>
-        [HttpGet("customers/{id}")]
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var customer = context.Customers.Include(x=>x.Orders).FirstOrDefault(x => x.Id == id);
+            var customer = _context.Customers.Include(x=>x.Orders).FirstOrDefault(x => x.Id == id);
             if (customer == null)
             {
                 return NotFound($"Customer with Id :{id.ToString()} Not Found.");
