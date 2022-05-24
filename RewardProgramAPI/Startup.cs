@@ -38,8 +38,8 @@ namespace RewardProgramAPI
                 opt.SwaggerDoc("v1", new OpenApiInfo()
                 {
                     Version = "v1",
-                    Title = "Reward Points API. Stellar It Solutions",
-                    Description = "Stellar It Solutions - Full Stack Developer Assessment",
+                    Title = "Reward Program API. Stellar It Solutions",
+                    Description = "Stellar It Solutions - Full Stack Developer Coding Assessment",
                     Contact = new OpenApiContact()
                     {
                          Name = "Ashutosh Nigam",
