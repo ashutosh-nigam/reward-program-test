@@ -50,7 +50,7 @@ APIs documentation is displayed using [Swagger](https://swagger.io).
       docker build -t reward-points-api .
       docker run -it --name reward-program-container -p 80:80 reward-points-api 
       ```
-   3. Open Web Browse and Navigate to [localhost:80//index.html](localhost:80//index.html)
+   3. Open Web Browse and Navigate to [http://localhost/index.html](http://localhost/index.html)
 3. Download Docker Image from [docker hub - hub.docker.com](hub.docker.com) 
     1. Prerequisite:
         1. Docker Desktop
@@ -60,5 +60,5 @@ APIs documentation is displayed using [Swagger](https://swagger.io).
        docker pull ashutosh456/reward-points-api
        docker run -it --name RewardProgramContainer -p 80:80 ashutosh456/reward-points-api
        ```
-    3. Open Web Browse and Navigate to [localhost:80//index.html](localhost:80//index.html)
+    3. Open Web Browse and Navigate to [http://localhost/index.html](http://localhost/index.html)
 
