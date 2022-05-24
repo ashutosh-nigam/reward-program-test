@@ -19,6 +19,9 @@ Solutions is Created using [Microsoft.NET WebAPI](https://dotnet.microsoft.com/e
 Solution include a docker file which can be run directly else this image is uploaded to [docker hub](hub.docker.com), and can be downloaded form [docker hub](hub.docker.com) and run.
 
 ---
+#### Endpoints
+1. Swagger - [http://localhost:80/index.html](http://localhost/index.html)
+2. Health - [http://localhost:80/health](http://localhost/health)
 #### Swagger for APIs
 APIs documentation is displayed using [Swagger](https://swagger.io).
 

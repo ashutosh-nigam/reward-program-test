@@ -51,6 +51,7 @@ namespace RewardProgramAPI
                     $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
                 opt.IncludeXmlComments(xmlfile,includeControllerXmlComments:true);
             });
+            services.AddHealthChecks();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,6 +71,7 @@ namespace RewardProgramAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/health");
             });
             app.UseSwagger();
             app.UseSwaggerUI(x =>
