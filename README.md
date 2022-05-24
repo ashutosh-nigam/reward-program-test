@@ -1,7 +1,6 @@
 # Reward Program Coding Test
 ## Stellar It Solutions
 From: [Ashutosh Nigam](https://www.ashutoshnigam.in),
-[Contact No: +91 9630747751](callto:+919630747751),
 [Email: mrashutoshnigam@gmail.com](emailto:mrashutoshnigam@gmail.com)
 ### Coding Challenge:
 ### Problem:
@@ -61,4 +60,8 @@ APIs documentation is displayed using [Swagger](https://swagger.io).
        docker run -it --name RewardProgramContainer -p 80:80 ashutosh456/reward-points-api
        ```
     3. Open Web Browse and Navigate to [http://localhost/index.html](http://localhost/index.html)
+
+---
+### Postman Collection
+Please find Postman collection attached or use swagger directly to test APIs
 
