@@ -68,3 +68,10 @@ APIs documentation is displayed using [Swagger](https://swagger.io).
 ### Postman Collection
 Please find Postman collection attached or use swagger directly to test APIs
 
+### Running Unit Tests
+
+1. Navigate to Project Directory.
+2. Run following command in terminal.
+```shell
+dotnet test 
+```
