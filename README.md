@@ -1,6 +1,6 @@
 # Reward Program Coding Test
 ## Stellar It Solutions
-From: [Ashutosh Nigam](https://www.ashutoshnigam.in),
+From: [Ashutosh Nigam](https://www.ashutoshnigam.in), [linkedin](https://www.linkedin.com/in/mrashutoshnigam/)
 [Email: mrashutoshnigam@gmail.com](emailto:mrashutoshnigam@gmail.com)
 ### Coding Challenge:
 ### Problem:
