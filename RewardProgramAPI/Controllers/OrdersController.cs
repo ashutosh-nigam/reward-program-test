@@ -144,7 +144,7 @@ namespace RewardProgramAPI.Controllers
                     order.ProductOrders = productOrders;
                     _context.ProductOrders.AddRange(productOrders);
                     _context.SaveChanges();
-                    return RedirectToAction("Get", new {id = order.Id});
+                    return Get(order.Id);
                 }
                 else
                 {
