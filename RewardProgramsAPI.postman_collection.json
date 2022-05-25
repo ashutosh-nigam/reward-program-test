@@ -12,12 +12,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:5001/customers",
+					"raw": "https://localhost:80/customers",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
-					"port": "5001",
+					"port": "80",
 					"path": [
 						"customers"
 					]
@@ -31,12 +31,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:5001/customers/1",
+					"raw": "https://localhost:80/customers/1",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
-					"port": "5001",
+					"port": "80",
 					"path": [
 						"customers",
 						"1"
@@ -51,12 +51,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:5001/orders",
+					"raw": "https://localhost:80/orders",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
-					"port": "5001",
+					"port": "80",
 					"path": [
 						"orders"
 					]
@@ -70,12 +70,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:5001/orders/1",
+					"raw": "https://localhost:80/orders/1",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
-					"port": "5001",
+					"port": "80",
 					"path": [
 						"orders",
 						"1"
@@ -99,12 +99,12 @@
 					}
 				},
 				"url": {
-					"raw": "https://localhost:5001/orders",
+					"raw": "https://localhost:80/orders",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
-					"port": "5001",
+					"port": "80",
 					"path": [
 						"orders"
 					]
@@ -118,12 +118,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:5001/products",
+					"raw": "https://localhost:80/products",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
-					"port": "5001",
+					"port": "80",
 					"path": [
 						"products"
 					]
@@ -137,12 +137,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:5001/rewardpoints",
+					"raw": "https://localhost:80/rewardpoints",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
-					"port": "5001",
+					"port": "80",
 					"path": [
 						"rewardpoints"
 					]
@@ -156,12 +156,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:5001/rewardpoints/1",
+					"raw": "https://localhost:80/rewardpoints/1",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
-					"port": "5001",
+					"port": "80",
 					"path": [
 						"rewardpoints",
 						"1"

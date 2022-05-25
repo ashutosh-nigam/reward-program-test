@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -30,6 +31,12 @@ namespace RewardProgramAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpLogging(logging =>
+            {
+                logging.LoggingFields = HttpLoggingFields.All;
+                logging.RequestBodyLogLimit = 0;
+                logging.ResponseBodyLogLimit = 0;
+            });
             services.AddControllers();
             services.AddDbContext<RewardProgramDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("sqlite")));
@@ -57,11 +64,11 @@ namespace RewardProgramAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseHttpLogging();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            
             app.UseHttpsRedirection();
 
             app.UseRouting();
