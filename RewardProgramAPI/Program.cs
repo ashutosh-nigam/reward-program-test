@@ -20,7 +20,17 @@ namespace RewardProgramAPI
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureLogging((context, logging) =>
+                    {
+                        logging.ClearProviders();
+                        logging.AddConsole();
+                        logging.AddDebug();
+                        logging.AddEventSourceLogger();
+                        logging.AddJsonConsole();
+                    });
+                   
                     webBuilder.UseStartup<Startup>();
+                    
                 });
     }
 }
