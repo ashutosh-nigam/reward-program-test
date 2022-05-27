@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -16,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using RewardProgramAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using RewardProgramAPI.Extras;
 
 namespace RewardProgramAPI
 {
@@ -38,31 +40,26 @@ namespace RewardProgramAPI
                 logging.ResponseBodyLogLimit = 0;
             });
             services.AddControllers();
+            services.AddApiVersioning(x =>
+            {
+                x.DefaultApiVersion = new ApiVersion(1, 0);
+                x.AssumeDefaultVersionWhenUnspecified = true;
+                x.ReportApiVersions = true;
+            });
+            services.AddVersionedApiExplorer(x =>
+            {
+                x.GroupNameFormat = "'v'VVV";
+                x.SubstituteApiVersionInUrl = true;
+            });
             services.AddDbContext<RewardProgramDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("sqlite")));
-            services.AddSwaggerGen(opt =>
-            {
-                opt.SwaggerDoc("v1", new OpenApiInfo()
-                {
-                    Version = "v1",
-                    Title = "Reward Program API. Stellar It Solutions",
-                    Description = "Stellar It Solutions - Full Stack Developer Coding Assessment",
-                    Contact = new OpenApiContact()
-                    {
-                         Name = "Ashutosh Nigam",
-                         Email = "mrashutoshnigam@gmail.com",
-                         Url =  new Uri("https://www.ashutoshnigam.in")
-                    }
-                });
-                var xmlfile = Path.Combine(AppContext.BaseDirectory,
-                    $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
-                opt.IncludeXmlComments(xmlfile,includeControllerXmlComments:true);
-            });
+            services.AddSwaggerGen();
+            services.ConfigureOptions<ConfigureSwaggerOptions>();
             services.AddHealthChecks();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             app.UseHttpLogging();
             if (env.IsDevelopment())
@@ -83,8 +80,11 @@ namespace RewardProgramAPI
             app.UseSwagger();
             app.UseSwaggerUI(x =>
             {
-                x.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-                x.RoutePrefix = string.Empty;
+                foreach (var description in provider.ApiVersionDescriptions)
+                {
+                    x.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.ApiVersion.ToString().ToUpperInvariant());
+                    x.RoutePrefix = string.Empty;
+                }
             });
 
 
