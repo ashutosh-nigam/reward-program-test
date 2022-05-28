@@ -37,7 +37,7 @@ public class CustomersController : ControllerBase
     /// <returns></returns>
     [HttpGet]
     [Produces("application/json")]
-    public IEnumerable<ViewModels.V2.CustomerV2> GetALL()
+    public IEnumerable<ViewModels.V2.CustomerV2> GetAll()
     {
         var customers = _context.Customers.Include(x => x.Orders)
             .Select(cust => new ViewModels.V2.CustomerV2()
@@ -56,7 +56,7 @@ public class CustomersController : ControllerBase
         return customers;
     }
     /// <summary>
-    /// Get Individual Customer Information
+    /// Get Individual Customer Information including Points and Orders monthly
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
