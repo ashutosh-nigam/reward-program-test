@@ -9,7 +9,7 @@ From: [Ashutosh Nigam](https://www.ashutoshnigam.in), [LinkedIn](https://www.lin
 
 ### Problem:
 
-A retailer offers a rewards program to its customers awarding points based on each recorded purchase as follows
+A retailer offers a rewards program to its customers awarding points based on each recorded purchase as follows:
 
 For every dollar spent over $50 on the transaction, the customer receives one point.
 In addition, for every dollar spent over $100, the customer receives another point.
