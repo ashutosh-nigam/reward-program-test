@@ -8,7 +8,13 @@ namespace RewardProgramAPI.ViewModels;
 /// </summary>
 public class CustomerWithRewardPoints : Customer
 {
+    /// <summary>
+    /// Total Points Earned So far.
+    /// </summary>
     public int TotalPoints { get; set; }
+    /// <summary>
+    /// List of Orders
+    /// </summary>
     public IList<OrderDetail> OrderDetails { get; set; }
 }
 
@@ -17,7 +23,16 @@ public class CustomerWithRewardPoints : Customer
 /// </summary>
 public class OrderDetail
 {
+    /// <summary>
+    /// Order Id
+    /// </summary>
     public int Id { get; set; }
+    /// <summary>
+    /// Order Datetime
+    /// </summary>
     public DateTime OrderDate { get; set; }
+    /// <summary>
+    /// Points earned in every order
+    /// </summary>
     public int Points { get; set; }
 }
