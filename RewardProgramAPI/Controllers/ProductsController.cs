@@ -11,6 +11,8 @@ namespace RewardProgramAPI.Controllers;
 /// Products Information
 /// </summary>
 [ApiController]
+[ApiVersion("1.0")]
+[ApiVersion("2.0")]
 [Route("products")]
 public class ProductsController : ControllerBase
 {

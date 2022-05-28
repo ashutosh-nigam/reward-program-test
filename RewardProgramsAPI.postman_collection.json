@@ -7,17 +7,183 @@
 	},
 	"item": [
 		{
+			"name": "V2 - 2.0",
+			"item": [
+				{
+					"name": "Get ALL Customers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port}}/customers?api-version=2.0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"customers"
+							],
+							"query": [
+								{
+									"key": "api-version",
+									"value": "2.0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Individual Customer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port}}/customers/1?api-version=2.0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"customers",
+								"1"
+							],
+							"query": [
+								{
+									"key": "api-version",
+									"value": "2.0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port}}/orders?api-version=2.0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"orders"
+							],
+							"query": [
+								{
+									"key": "api-version",
+									"value": "2.0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Place New Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customerId\":2,\n  \"products\": [\n    {\n      \"id\": 2,\n      \"quantity\": 2\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port}}/orders?api-version=2.0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"orders"
+							],
+							"query": [
+								{
+									"key": "api-version",
+									"value": "2.0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Indivisual Order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port}}/orders/1?api-version=2.0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"orders",
+								"1"
+							],
+							"query": [
+								{
+									"key": "api-version",
+									"value": "2.0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port}}/products?api-version=2.0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "api-version",
+									"value": "2.0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Get ALL Customers",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:80/customers",
-					"protocol": "https",
+					"raw": "http://localhost:{{port}}/customers",
+					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "80",
+					"port": "{{port}}",
 					"path": [
 						"customers"
 					]
@@ -31,12 +197,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:80/customers/1",
-					"protocol": "https",
+					"raw": "http://localhost:{{port}}/customers/1",
+					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "80",
+					"port": "{{port}}",
 					"path": [
 						"customers",
 						"1"
@@ -51,12 +217,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:80/orders",
-					"protocol": "https",
+					"raw": "http://localhost:{{port}}/orders",
+					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "80",
+					"port": "{{port}}",
 					"path": [
 						"orders"
 					]
@@ -70,12 +236,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:80/orders/1",
-					"protocol": "https",
+					"raw": "http://localhost:{{port}}/orders/1",
+					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "80",
+					"port": "{{port}}",
 					"path": [
 						"orders",
 						"1"
@@ -99,12 +265,12 @@
 					}
 				},
 				"url": {
-					"raw": "https://localhost:80/orders",
-					"protocol": "https",
+					"raw": "http://localhost:{{port}}/orders",
+					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "80",
+					"port": "{{port}}",
 					"path": [
 						"orders"
 					]
@@ -118,12 +284,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:80/products",
-					"protocol": "https",
+					"raw": "http://localhost:{{port}}/products",
+					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "80",
+					"port": "{{port}}",
 					"path": [
 						"products"
 					]
@@ -137,12 +303,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:80/rewardpoints",
-					"protocol": "https",
+					"raw": "http://localhost:{{port}}/rewardpoints",
+					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "80",
+					"port": "{{port}}",
 					"path": [
 						"rewardpoints"
 					]
@@ -156,12 +322,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:80/rewardpoints/1",
-					"protocol": "https",
+					"raw": "http://localhost:{{port}}/rewardpoints/1",
+					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "80",
+					"port": "{{port}}",
 					"path": [
 						"rewardpoints",
 						"1"
@@ -169,6 +335,33 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "port",
+			"value": "80",
+			"type": "string"
 		}
 	]
 }

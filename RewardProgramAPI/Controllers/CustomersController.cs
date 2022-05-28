@@ -16,6 +16,7 @@ namespace RewardProgramAPI.Controllers
     /// Customers Information
     /// </summary>
     [ApiController]
+    [ApiVersion("1.0")]
     [Route("customers")]
     public class CustomersController : ControllerBase
     {

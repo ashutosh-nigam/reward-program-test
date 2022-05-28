@@ -6,8 +6,14 @@ namespace RewardProgramAPI.ViewModels;
 /// </summary>
 public class Customer
 {
+        /// <summary>
+        /// Customer Id
+        /// </summary>
         [Key]
         public int Id { get; set; }
+        /// <summary>
+        /// Customer Name
+        /// </summary>
         [Required]
         public string Name { get; set; }
 }
