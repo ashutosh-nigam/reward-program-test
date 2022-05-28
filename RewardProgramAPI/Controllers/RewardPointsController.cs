@@ -14,6 +14,7 @@ namespace RewardProgramAPI.Controllers;
 /// </summary>
 [ApiController]
 [Route("rewardpoints")]
+[ApiVersion("1.0")]
 public class RewardPointsController : ControllerBase
 {
     private readonly RewardProgramDbContext _context;
