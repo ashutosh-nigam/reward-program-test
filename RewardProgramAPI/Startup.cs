@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Xml.XPath;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpLogging;
@@ -53,7 +54,11 @@ namespace RewardProgramAPI
             });
             services.AddDbContext<RewardProgramDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("sqlite")));
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(x =>
+            {
+                var filePath = Path.Combine(AppContext.BaseDirectory, "RewardProgramAPI.xml");
+                x.IncludeXmlComments(filePath);
+            });
             services.ConfigureOptions<ConfigureSwaggerOptions>();
             services.AddHealthChecks();
         }
