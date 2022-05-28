@@ -119,3 +119,4 @@ Please find [Postman collection](./RewardProgramsAPI.postman_collection.json) at
 dotnet test 
 ```
 ![Unit Tests](./AdditionalContent/unit_tests.png "Unit Tests")
+![Postman collection](./AdditionalContent/postman.png "postman collection")
