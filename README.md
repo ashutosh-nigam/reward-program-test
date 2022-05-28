@@ -16,7 +16,7 @@ In addition, for every dollar spent over $100, the customer receives another poi
 Ex: for a $120 purchase, the customer receives
 (120 - 50) x 1 + (120 - 100) x 1 = 90 points
 ---
-### Updated Problem (May 23, 2022) - `V2 (2.0)`
+### :point_right: Updated Problem (May 23, 2022) - `V2 (2.0)` 
 A retailer offers a rewards program to its customers awarding points based on each recorded purchase as follows:
 
 For every dollar spent over $50 on the transaction, the customer receives one point.
@@ -29,7 +29,7 @@ Given a record of every transaction during a three-month period, calculate the r
 •	Check solution into GitHub
 ---
 ### Solution
-> Latest  Updated Problem Solution is implemented in API Version `2.0`. Please select `2.0` to use latest solution
+> :point_right: Latest Updated Problem Solution is implemented in API Version `2.0`. Please select `2.0` to use latest solution
 - Language: C#.NET and WebAPI
 - Database : SQLite
 - Container: Docker
@@ -43,7 +43,7 @@ and can be downloaded form [docker hub](hub.docker.com) and run.
 ---
 
 #### Endpoints
-> Default API version is 1.0, To use 2.0, need to pass `api-version=2.0` in query string
+> :point_right: Default API version is 1.0, To use 2.0, need to pass `api-version=2.0` in query string
 - Swagger - [http://localhost:80/index.html](http://localhost/index.html)
 - Health check - [http://localhost:80/health](http://localhost/health)
 
@@ -73,7 +73,7 @@ APIs documentation is displayed using [Swagger](https://swagger.io).
        cd RewardProgramAPI
        dotnet run
        ```
-2. Docker Compose Up :ok_hand: best one
+2. Docker Compose Up :ok_hand: (best one)
     1. Prerequisite:
         1. Docker Desktop
     2. Steps To Run:
