@@ -9,7 +9,7 @@ From: [Ashutosh Nigam](https://www.ashutoshnigam.in), [LinkedIn](https://www.lin
 
 ### Problem:
 
-A retailer offers a rewards program to its customers awarding points based on each recorded purchase as follows:
+A retailer offers a rewards program to its customers awarding points based on each recorded purchase as follows
 
 For every dollar spent over $50 on the transaction, the customer receives one point.
 In addition, for every dollar spent over $100, the customer receives another point.
@@ -22,11 +22,10 @@ A retailer offers a rewards program to its customers awarding points based on ea
 For every dollar spent over $50 on the transaction, the customer receives one point.
 In addition, for every dollar spent over $100, the customer receives another point.
 Ex: for a $120 purchase, the customer receives
-(120 - 50) x 1 + (120 - 100) x 1 = 90 points
+(120 - 50) x 1 + (120 - 100) x 1 = 90 points 
 
 Given a record of every transaction during a three-month period, calculate the reward points earned for each customer per month and total.
-•	Make up a data set to best demonstrate your solution
-•	Check solution into GitHub
+
 ---
 ### Solution
 > :point_right: Latest Updated Problem Solution is implemented in API Version `2.0`. Please select `2.0` to use latest solution
@@ -119,3 +118,4 @@ Please find [Postman collection](./RewardProgramsAPI.postman_collection.json) at
 ```shell
 dotnet test 
 ```
+![Unit Tests](./AdditionalContent/unit_tests.png "Unit Tests")
